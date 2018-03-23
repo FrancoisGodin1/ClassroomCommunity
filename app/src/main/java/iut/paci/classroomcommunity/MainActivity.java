@@ -3,6 +3,7 @@ package iut.paci.classroomcommunity;
 
 
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigationView;
+    TabLayout tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +33,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.configureToolBar();
         this.configureDrawerLayout();
         this.configureNavigationView();
-        this.configureViewPager();
+        this.configureViewPagerAndTabs();
     }
 
-    private void configureViewPager() {
+    private void configureViewPagerAndTabs() {
         ViewPager pager = (ViewPager)findViewById(R.id.activity_main_viewpager);
 
         // 2 - Set Adapter PageAdapter and glue it together
         pager.setAdapter(new PageAdapter(getSupportFragmentManager(),
-                         getResources().getIntArray(R.array.colorPagesViewPager)) {
-        });
+                         getResources().getIntArray(R.array.colorPagesViewPager)));
+
+        // 1 - Get TabLayout from layout
+        this.tabs = (TabLayout)findViewById(R.id.activity_main_tabs);
+        // 2 - Glue TabLayout and ViewPager together
+        tabs.setupWithViewPager(pager);
+        // 3 je fais en sorte que chaque onglet dispose de la même taille et remplisse complètement la largeur de l'écran.
+        tabs.setTabMode(TabLayout.MODE_FIXED);
     }
 
     @Override
