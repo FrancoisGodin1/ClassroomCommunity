@@ -1,8 +1,10 @@
 package iut.paci.classroomcommunity;
+//key server : paci.iut.1235
 
-import android.content.res.Configuration;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,10 +29,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 6 - Configure all views
 
         this.configureToolBar();
-
         this.configureDrawerLayout();
-
         this.configureNavigationView();
+        this.configureViewPager();
+    }
+
+    private void configureViewPager() {
+        ViewPager pager = (ViewPager)findViewById(R.id.activity_main_viewpager);
+
+        // 2 - Set Adapter PageAdapter and glue it together
+        pager.setAdapter(new PageAdapter(getSupportFragmentManager(),
+                         getResources().getIntArray(R.array.colorPagesViewPager)) {
+        });
     }
 
     @Override
@@ -42,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
